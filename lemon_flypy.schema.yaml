@@ -1,0 +1,190 @@
+schema:
+  schema_id: lemon_flypy
+  name: 柠檬小鹤
+  version: "0.4.1"
+  author:
+    - LemonHX <lemonhx@lemonhx.moe>
+  description: |
+    柠檬小鹤是柠檬自己维护的一套小鹤
+    鉴于柠檬是小鹤输入法加RIME的双料初学者请谨慎使用！
+  dependencies:
+    - easy_en
+    - luna_pinyin
+    - jyut6ping3
+    - openfly_reverse
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中文, English ]
+  - name: full_shape
+    states: [ 半角, 全角 ]
+  - name: simplification
+    states: [ 漢字, 汉字 ]
+  - name: ascii_punct
+    states: [ 。，, ．， ]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - affix_segmentor@luna
+    - affix_segmentor@jyut6ping3
+    - affix_segmentor@flypy_help
+    - affix_segmentor@easy_en_simp
+    - affix_segmentor@chaizi
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - table_translator@custom_phrase
+    - script_translator
+    - script_translator@luna
+    - script_translator@jyut6ping3
+    - table_translator@flypy_help
+    - table_translator@easy_en_simp
+    - table_translator@chaizi
+    - reverse_lookup_translator
+  filters:
+    - simplifier
+    - uniquifier
+
+speller:
+  alphabet: zyxwvutsrqponmlkjihgfedcba[
+  initials: zyxwvutsrqponmlkjihgfedcba
+  delimiter: " '"
+  algebra:
+    - derive/^(..).+$/$1/
+    - derive/^(..[[].).+$/$1/
+    - derive/^([jqxy])u/$1v/
+    # 不显示 `[`
+    - xform/[[]//
+
+translator:
+  dictionary: flypy_flypy
+  # enable_user_dict: true
+  # 查看拼音
+  preedit_format:
+    - "xform/((^|[ '])[bpmfdtnljqx])n/$1iao/"
+    - "xform/((^|[ '])\\w)g/$1eng/"
+    - "xform/((^|[ '])\\w)q/$1iu/"
+    - "xform/((^|[ '])\\w)w/$1ei/"
+    - "xform/((^|[ '])[dtnlgkhjqxyvuirzcs])r/$1uan/"
+    - "xform/((^|[ '])\\w)t/$1ve/"
+    - "xform/((^|[ '])\\w)y/$1un/"
+    - "xform/((^|[ '])[dtnlgkhvuirzcs])o/$1uo/"
+    - "xform/((^|[ '])\\w)p/$1ie/"
+    - "xform/((^|[ '])[jqx])s/$1iong/"
+    - "xform/((^|[ '])\\w)s/$1ong/"
+    - "xform/((^|[ '])\\w)d/$1ai/"
+    - "xform/((^|[ '])\\w)f/$1en/"
+    - "xform/((^|[ '])\\w)h/$1ang/"
+    - "xform/((^|[ '])\\w)j/$1an/"
+    - "xform/((^|[ '])[gkhvuirzcs])k/$1uai/"
+    - "xform/((^|[ '])\\w)k/$1ing/"
+    - "xform/((^|[ '])[jqxnl])l/$1iang/"
+    - "xform/((^|[ '])\\w)l/$1uang/"
+    - "xform/((^|[ '])\\w)z/$1ou/"
+    - "xform/((^|[ '])[gkhvuirzcs])x/$1ua/"
+    - "xform/((^|[ '])\\w)x/$1ia/"
+    - "xform/((^|[ '])\\w)c/$1ao/"
+    - "xform/((^|[ '])[dtgkhvuirzcs])v/$1ui/"
+    - "xform/((^|[ '])\\w)b/$1in/"
+    - "xform/((^|[ '])\\w)m/$1ian/"
+    - "xform/(^|[ '])([aoe])\\2(\\w)/$1$2$3/"
+    - "xform/(^|[ '])v/$1zh/"
+    - "xform/(^|[ '])i/$1ch/"
+    - "xform/(^|[ '])u/$1sh/"
+    - "xform/((^|[ '])[jqxy])v/$1u/"
+    - "xform/((^|[ '])[nl])v/$1ü/"
+
+custom_phrase:
+  dictionary: ""
+  user_dict: custom_phrase
+  db_class: stabledb
+  enable_completion: false
+  enable_sentence: false
+  initial_quality: 1
+
+key_binder:
+  import_preset: default
+
+
+recognizer:
+  # import_preset: default
+  patterns:
+    uppercase: "^[A-Z].*$"
+    ## associate schemes:
+    reverse_lookup: "[a-z`]*`+[a-z`]*"
+    chaizi: "^ad[a-z]*'?$"
+    luna: "^ap[a-z]*'?$"
+    flypy_help: "^ac.*$"
+    easy_en_simp: "^aw[a-z]*"
+    jyut6ping3: "^ay[a-z]*"
+
+menu:
+  page_size: 4
+
+luna:
+  tag: luna
+  dictionary: luna_pinyin
+  prism: luna_pinyin
+  enable_completion: true
+  prefix: "ap"
+  suffix: "'"
+  tips: "朙月拼音"
+jyut6ping3:
+  tag: jyut6ping3
+  dictionary: jyut6ping3
+  prism: jyut6ping3
+  enable_completion: true
+  prefix: "ay"
+  suffix: "'"
+  tips: "粤拼"
+flypy_help:
+  dictionary: ""
+  user_dict: flypy_help
+  tag: flypy_help
+  prefix: "ac"
+  tips: "小鹤查键"
+  db_class: stabledb
+  enable_completion: true
+  enable_sentence: false
+  initial_quality: 1
+easy_en_simp:
+  tag: easy_en_simp
+  dictionary: easy_en
+  enable_completion: true
+  enable_sentence: false
+  prefix: "aw"
+  suffix: "'"
+  tips: "英文单词"
+  spelling_hints: 9
+  comment_format:
+    - xform/^.+$//
+chaizi:
+  dictionary: ""
+  user_dict: chaizi
+  tag: chaizi
+  prefix: "ad"
+  suffix: "'"
+  tips: "小鹤拆字"
+  db_class: stabledb
+  enable_completion: true
+  enable_sentence: false
+  initial_quality: 1
+
+reverse_lookup:
+  dictionary: openfly_reverse
+  comment_format:
+    - xform/ / /

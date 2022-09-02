@@ -1,2 +1,9 @@
 var:
-  last_build_time: 1662141576
+  last_build_time: 1662156487
+  option:
+    simplification: true
+  previously_selected_schema: lemon_flypy
+  schema_access_time:
+    easy_en: 1662143782
+    lemon_flypy: 1662148834
+    luna_pinyin_simp: 1662143899

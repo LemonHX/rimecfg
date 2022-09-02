@@ -1,0 +1,218 @@
+__build_info:
+  rime_version: 1.5.3
+  timestamps:
+    default: 1662141362
+    default.custom: 1662156417
+    key_bindings: 1561218646
+    key_bindings.custom: 0
+    lemon_flypy.custom: 1662156417
+    lemon_flypy.schema: 1662156417
+    punctuation: 1561218646
+    punctuation.custom: 0
+chaizi:
+  db_class: stabledb
+  dictionary: ""
+  enable_completion: true
+  enable_sentence: false
+  initial_quality: 1
+  prefix: ad
+  suffix: "'"
+  tag: chaizi
+  tips: "小鹤拆字"
+  user_dict: chaizi
+custom_phrase:
+  db_class: stabledb
+  dictionary: ""
+  enable_completion: false
+  enable_sentence: false
+  initial_quality: 1
+  user_dict: custom_phrase
+easy_en_simp:
+  comment_format:
+    - "xform/^.+$//"
+  dictionary: easy_en
+  enable_completion: true
+  enable_sentence: false
+  prefix: aw
+  spelling_hints: 9
+  suffix: "'"
+  tag: easy_en_simp
+  tips: "英文单词"
+engine:
+  filters:
+    - simplifier
+    - uniquifier
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - "affix_segmentor@luna"
+    - "affix_segmentor@jyut6ping3"
+    - "affix_segmentor@flypy_help"
+    - "affix_segmentor@easy_en_simp"
+    - "affix_segmentor@chaizi"
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - "table_translator@custom_phrase"
+    - script_translator
+    - "script_translator@luna"
+    - "script_translator@jyut6ping3"
+    - "table_translator@flypy_help"
+    - "table_translator@easy_en_simp"
+    - "table_translator@chaizi"
+    - reverse_lookup_translator
+flypy_help:
+  db_class: stabledb
+  dictionary: ""
+  enable_completion: true
+  enable_sentence: false
+  initial_quality: 1
+  prefix: ac
+  tag: flypy_help
+  tips: "小鹤查键"
+  user_dict: flypy_help
+jyut6ping3:
+  dictionary: jyut6ping3
+  enable_completion: true
+  prefix: ay
+  prism: jyut6ping3
+  suffix: "'"
+  tag: jyut6ping3
+  tips: "粤拼"
+key_binder:
+  bindings:
+    - {accept: "Control+p", send: Up, when: composing}
+    - {accept: "Control+n", send: Down, when: composing}
+    - {accept: "Control+b", send: Left, when: composing}
+    - {accept: "Control+f", send: Right, when: composing}
+    - {accept: "Control+a", send: Home, when: composing}
+    - {accept: "Control+e", send: End, when: composing}
+    - {accept: "Control+d", send: Delete, when: composing}
+    - {accept: "Control+k", send: "Shift+Delete", when: composing}
+    - {accept: "Control+h", send: BackSpace, when: composing}
+    - {accept: "Control+g", send: Escape, when: composing}
+    - {accept: "Control+bracketleft", send: Escape, when: composing}
+    - {accept: "Alt+v", send: Page_Up, when: composing}
+    - {accept: "Control+v", send: Page_Down, when: composing}
+    - {accept: ISO_Left_Tab, send: "Shift+Left", when: composing}
+    - {accept: "Shift+Tab", send: "Shift+Left", when: composing}
+    - {accept: Tab, send: "Shift+Right", when: composing}
+    - {accept: minus, send: Page_Up, when: has_menu}
+    - {accept: equal, send: Page_Down, when: has_menu}
+    - {accept: comma, send: Page_Up, when: paging}
+    - {accept: period, send: Page_Down, when: has_menu}
+    - {accept: "Control+Shift+1", select: .next, when: always}
+    - {accept: "Control+Shift+2", toggle: ascii_mode, when: always}
+    - {accept: "Control+Shift+3", toggle: full_shape, when: always}
+    - {accept: "Control+Shift+4", toggle: simplification, when: always}
+    - {accept: "Control+Shift+5", toggle: extended_charset, when: always}
+    - {accept: "Control+Shift+exclam", select: .next, when: always}
+    - {accept: "Control+Shift+at", toggle: ascii_mode, when: always}
+    - {accept: "Control+Shift+numbersign", toggle: full_shape, when: always}
+    - {accept: "Control+Shift+dollar", toggle: simplification, when: always}
+    - {accept: "Control+Shift+percent", toggle: extended_charset, when: always}
+    - {accept: Tab, send: "[", when: composing}
+  import_preset: default
+luna:
+  dictionary: luna_pinyin
+  enable_completion: true
+  prefix: ap
+  prism: luna_pinyin
+  suffix: "'"
+  tag: luna
+  tips: "朙月拼音"
+menu:
+  page_size: 4
+recognizer:
+  patterns:
+    chaizi: "^ad[a-z]*'?$"
+    easy_en_simp: "^aw[a-z]*"
+    flypy_help: "^ac.*$"
+    jyut6ping3: "^ay[a-z]*"
+    luna: "^ap[a-z]*'?$"
+    reverse_lookup: "[a-z`]*`+[a-z`]*"
+    uppercase: "^[A-Z].*$"
+reverse_lookup:
+  comment_format:
+    - "xform/ / /"
+  dictionary: openfly_reverse
+schema:
+  author:
+    - "LemonHX <lemonhx@lemonhx.moe>"
+  dependencies:
+    - easy_en
+    - luna_pinyin
+    - jyut6ping3
+    - openfly_reverse
+  description: |
+    柠檬小鹤是柠檬自己维护的一套小鹤
+    鉴于柠檬是小鹤输入法加RIME的双料初学者请谨慎使用！
+    
+  name: "柠檬小鹤"
+  schema_id: lemon_flypy
+  version: 0.4.1
+speller:
+  algebra:
+    - "derive/^(..).+$/$1/"
+    - "derive/^(..[[].).+$/$1/"
+    - "derive/^([jqxy])u/$1v/"
+    - "xform/[[]//"
+  alphabet: "zyxwvutsrqponmlkjihgfedcba["
+  delimiter: " '"
+  initials: zyxwvutsrqponmlkjihgfedcba
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: ["中文", English]
+  - name: full_shape
+    states: ["半角", "全角"]
+  - name: simplification
+    states: ["漢字", "汉字"]
+  - name: ascii_punct
+    states: ["。，", "．，"]
+translator:
+  dictionary: flypy_flypy
+  preedit_format:
+    - "xform/((^|[ '])[bpmfdtnljqx])n/$1iao/"
+    - "xform/((^|[ '])\\w)g/$1eng/"
+    - "xform/((^|[ '])\\w)q/$1iu/"
+    - "xform/((^|[ '])\\w)w/$1ei/"
+    - "xform/((^|[ '])[dtnlgkhjqxyvuirzcs])r/$1uan/"
+    - "xform/((^|[ '])\\w)t/$1ve/"
+    - "xform/((^|[ '])\\w)y/$1un/"
+    - "xform/((^|[ '])[dtnlgkhvuirzcs])o/$1uo/"
+    - "xform/((^|[ '])\\w)p/$1ie/"
+    - "xform/((^|[ '])[jqx])s/$1iong/"
+    - "xform/((^|[ '])\\w)s/$1ong/"
+    - "xform/((^|[ '])\\w)d/$1ai/"
+    - "xform/((^|[ '])\\w)f/$1en/"
+    - "xform/((^|[ '])\\w)h/$1ang/"
+    - "xform/((^|[ '])\\w)j/$1an/"
+    - "xform/((^|[ '])[gkhvuirzcs])k/$1uai/"
+    - "xform/((^|[ '])\\w)k/$1ing/"
+    - "xform/((^|[ '])[jqxnl])l/$1iang/"
+    - "xform/((^|[ '])\\w)l/$1uang/"
+    - "xform/((^|[ '])\\w)z/$1ou/"
+    - "xform/((^|[ '])[gkhvuirzcs])x/$1ua/"
+    - "xform/((^|[ '])\\w)x/$1ia/"
+    - "xform/((^|[ '])\\w)c/$1ao/"
+    - "xform/((^|[ '])[dtgkhvuirzcs])v/$1ui/"
+    - "xform/((^|[ '])\\w)b/$1in/"
+    - "xform/((^|[ '])\\w)m/$1ian/"
+    - "xform/(^|[ '])([aoe])\\2(\\w)/$1$2$3/"
+    - "xform/(^|[ '])v/$1zh/"
+    - "xform/(^|[ '])i/$1ch/"
+    - "xform/(^|[ '])u/$1sh/"
+    - "xform/((^|[ '])[jqxy])v/$1u/"
+    - "xform/((^|[ '])[nl])v/$1ü/"
