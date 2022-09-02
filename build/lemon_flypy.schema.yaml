@@ -5,7 +5,7 @@ __build_info:
     default.custom: 1662156417
     key_bindings: 1561218646
     key_bindings.custom: 0
-    lemon_flypy.custom: 1662156417
+    lemon_flypy.custom: 1662157705
     lemon_flypy.schema: 1662156417
     punctuation: 1561218646
     punctuation.custom: 0
@@ -38,8 +38,13 @@ easy_en_simp:
   suffix: "'"
   tag: easy_en_simp
   tips: "英文单词"
+emoji_suggestion:
+  opencc_config: emoji.json
+  option_name: emoji_suggestion
+  tips: all
 engine:
   filters:
+    - "simplifier@emoji_suggestion"
     - simplifier
     - uniquifier
   processors:
@@ -181,6 +186,9 @@ switches:
     states: ["漢字", "汉字"]
   - name: ascii_punct
     states: ["。，", "．，"]
+  - name: emoji_suggestion
+    reset: 1
+    states: ["🈚️️︎", "🈶️️️"]
 translator:
   dictionary: flypy_flypy
   preedit_format:

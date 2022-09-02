@@ -1,6 +1,6 @@
 # LemonHX Rime Config
 ![license](https://img.shields.io/github/license/lemonhx/rimecfg)
-![version](https://img.shields.io/badge/version-v0.4.1-yellow)
+![version](https://img.shields.io/badge/version-v0.5.1-yellow)
 
 柠檬的自用配置~
 

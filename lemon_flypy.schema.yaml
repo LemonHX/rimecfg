@@ -1,7 +1,7 @@
 schema:
   schema_id: lemon_flypy
   name: 柠檬小鹤
-  version: "0.4.1"
+  version: "0.5.1"
   author:
     - LemonHX <lemonhx@lemonhx.moe>
   description: |
